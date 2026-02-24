@@ -19,6 +19,8 @@ export default function Home() {
   const [precio, setPrecio] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
+  const [editPrecio, setEditPrecio] = useState<Record<string, string>>({});
+
   useEffect(() => {
     const load = async () => {
       setLoading(true);
@@ -87,6 +89,26 @@ export default function Home() {
     setPrecio("");
   };
 
+  const actualizarPrecio = async (id: string) => {
+    const nuevoPrecioStr = editPrecio[id];
+    const nuevoPrecio = Number(nuevoPrecioStr);
+
+    const { error } = await supabase
+      .from("inmuebles")
+      .update({ precio: nuevoPrecio })
+      .eq("id", id);
+
+    if (error) {
+      console.error(error);
+      alert(error.message);
+      return;
+    }
+
+    setInmuebles((prev) =>
+      prev.map((i) => (i.id === id ? { ...i, precio: nuevoPrecio } : i))
+    );
+  };
+
   return (
     <main className="p-6 max-w-2xl mx-auto">
       <h1 className="text-2xl font-semibold mb-4">Inmuebles</h1>
@@ -139,7 +161,22 @@ export default function Home() {
               </div>
 
               <div className="flex items-center gap-3">
-                <div className="font-semibold">{i.precio} €</div>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="number"
+                    className="w-28 border border-white rounded px-2 py-1 text-white bg-gray-800"
+                    value={editPrecio[i.id] ?? String(i.precio)}
+                    onChange={(e) =>
+                      setEditPrecio((prev) => ({ ...prev, [i.id]: e.target.value }))
+                    }
+                  />
+                  <button
+                    onClick={() => actualizarPrecio(i.id)}
+                    className="px-2 py-1 text-sm rounded bg-zinc-700 text-white hover:bg-zinc-800"
+                  >
+                    Guardar
+                  </button>
+                </div>
 
                 {i.estado === "disponible" && (
                   <button
