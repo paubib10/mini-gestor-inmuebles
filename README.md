@@ -1,17 +1,24 @@
 # Mini Gestor Inmobiliario
 
-MVP desarrollado como reto técnico para prácticas.
+MVP desarrollado como reto técnico para prácticas, enfocado en la construcción de una aplicación funcional en un tiempo limitado.
 
 ## Stack
 - Next.js (App Router)
-- Supabase
+- Supabase (Base de datos y API)
 - Tailwind CSS
 
+## Funcionalidades
+- Listado de inmuebles desde base de datos
+- Alta de nuevos inmuebles
+- Edición de precio
+- Cambio de estado (disponible / vendido)
+- Persistencia de datos sin recarga de página
+
 ## Objetivo
-Construir un gestor sencillo de inmuebles conectado a una base de datos en la nube.
+Demostrar la capacidad de conectar un frontend moderno con una base de datos en la nube, priorizando claridad, funcionalidad y buenas prácticas.
 
 ## Estado
-En desarrollo.
+Completado (MVP funcional).
 
 ## Notas
-Este proyecto se ha desarrollado en un tiempo limitado (~4h), priorizando funcionalidad y claridad del código.
+Este proyecto se ha desarrollado en un tiempo aproximado de 4 horas, priorizando funcionalidad y comprensión del código frente a diseño avanzado.
